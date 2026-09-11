@@ -20,3 +20,26 @@ maxHR = st.slider("Max Heart Rate")
 exercise_angina = st.selectboxO("Exercise-Induced Angina", ["Y", "N"])
 old_peak = st.slider("Oldpeak (ST Depression)", 0.0, 6.0, 1.0 )
 st_slope = st.selectbox("ST Slope", ["Up", "Flat", "Down"])
+
+if st.button("Predict"):
+    raw_input = {
+        'Age' : age,
+        'restingBP' : restingBP,
+        'Cholestrol' : cholestrol,
+        'FastingBS' : fastingBS,
+        'MaxHR' : maxHR,
+        'OldPeak' : old_peak,
+        'Sex_' + sex: 1,
+        'ChestPainType' + chestPain : 1,
+        'RestingECG' + restingECG: 1,
+        'ExerciseAngina' +  exercise_angina: 1,
+        'ST_Slope' + st_slope: 1,
+    }
+
+    input_df = pd.DataFrame([raw_input])
+
+    for col in columns:
+        if col not in input_df.columns:
+            input_df[col] = 0
+
+    input_df = input_df[columns]

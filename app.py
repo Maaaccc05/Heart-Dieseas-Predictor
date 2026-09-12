@@ -10,7 +10,7 @@ st.title("Heart Stroke Prediction")
 st.markdown("Provide the following Details")
 
 age = st.slider("Age", 18, 100, 40)
-sex = st.selectbox("Sex",['Male','Female'])
+sex = st.selectbox("Sex",['M','F'])
 chestPain = st.selectbox("Chest Pain Type", ["ATA"], ["NAP"], ["TA"], ["ASY"])
 restingBP = st.number_input("Resting BP (mm, Hg)",80, 200, 120)
 cholestrol = st.number_input("Cholestrol (mg/dL)", 100, 600, 200)
@@ -43,3 +43,10 @@ if st.button("Predict"):
             input_df[col] = 0
 
     input_df = input_df[columns]
+    scaled_input = scaler.transform(input_df)
+    prediction = model.predict(scaled_input)[0]
+
+    if prediction == 1:
+        st.error("High Risk of Heart Disease")
+    else:
+        st.success("Low Risk of Hear Disease")

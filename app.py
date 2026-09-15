@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-model = joblib.load("SVM_Heart.pkl")
+model = joblib.load("KNN_Heart.pkl")
 scaler = joblib.load("scaler.pkl")
 columns = joblib.load("columns.pkl")
 
@@ -37,7 +37,27 @@ if st.button("Predict"):
         "RestingECG_ST": 1 if restingECG == "ST" else 0,
         "ExerciseAngina_Y": 1 if exercise_angina == "Y" else 0,
         "ST_Slope_Up": 1 if st_slope == "Up" else 0,
-        "ST_Slope_Flat": 1 if st_slope == "Flat" else 0
+        "ST_Slope_Flat": 1 if st_slope == "Flat" else 0,
+        "Age_Young": 1 if age < 40 else 0,
+        "Age_Middle": 1 if 40 <= age < 60 else 0,
+        "Age_Senior": 1 if age >= 60 else 0,
+        "MaxHR_Age_ratio": maxHR / age,
+        "HighCholesterol": 1 if cholestrol > 240 else 0,
+        "Age^2": age ** 2,
+        "Age RestingBP": age * restingBP,
+        "Age Cholesterol": age * cholestrol,
+        "Age MaxHR": age * maxHR,
+        "Age Oldpeak": age * old_peak,
+        "RestingBP^2": restingBP ** 2,
+        "RestingBP Cholesterol": restingBP * cholestrol,
+        "RestingBP MaxHR": restingBP * maxHR,
+        "RestingBP Oldpeak": restingBP * old_peak,
+        "Cholesterol^2": cholestrol ** 2,
+        "Cholesterol MaxHR": cholestrol * maxHR,
+        "Cholesterol Oldpeak": cholestrol * old_peak,
+        "MaxHR^2": maxHR ** 2,
+        "MaxHR Oldpeak": maxHR * old_peak,
+        "Oldpeak^2": old_peak ** 2
     }
 
     input_df = pd.DataFrame([raw_input])
